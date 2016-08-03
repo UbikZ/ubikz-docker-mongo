@@ -23,12 +23,12 @@ if [[ ! -f $PASS_SET_FILE ]]; then
 		RET=$?
 	done
 
-	echo "=> Creating an ${ADMIN_USER} user with a password ${ADMIN_PASS} in MongoDB"
+	echo "=> Creating user / password pair ${ADMIN_USER} / ${ADMIN_PASS} in MongoDB"
 	mongo admin --eval "db.createUser({user: '$ADMIN_USER', pwd: '$ADMIN_PASS', roles:[{role:'root',db:'admin'}]});"
 
 	if [ "$DATABASE" != "admin" ]; then
-		echo "=> Creating an ${USER} user with a password in MongoDB"
-		mongo admin -u $USER -p $PASSWORD << EOF
+		echo "=> Creating user '${ADMIN_USER}' with a password in MongoDB"
+		mongo admin -u $ADMIN_USER -p $ADMIN_PASS << EOF
 			use $DATABASE;
 			db.createUser({user: '$USER', pwd: '$PASSWORD', roles:[{role:'dbOwner',db:'$DATABASE'}]});
 EOF
