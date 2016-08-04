@@ -24,7 +24,7 @@ if [[ ! -f $PASS_SET_FILE ]]; then
 	done
 
 	echo "=> Creating user / password pair ${ADMIN_USER} / ${ADMIN_PASS} in MongoDB"
-	mongo admin --eval "db.createUser({user: '$ADMIN_USER', pwd: '$ADMIN_PASS', roles:[{role:'root',db:'admin'}]});"
+	mongo admin --eval "db.createUser({user: '$ADMIN_USER', pwd: '$ADMIN_PASS', roles:[{role:'userAdminAnyDatabase',db:'admin'}]});"
 
 	if [ "$DATABASE" != "admin" ]; then
 		echo "=> Creating user '${ADMIN_USER}' with a password in MongoDB"
